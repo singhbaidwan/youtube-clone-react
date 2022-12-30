@@ -4,6 +4,7 @@ import VideoCard from './VideoCard';
 import ChannelCard from "./ChannelCard"
 
 function Videos({videos}) {
+
   console.log(videos);
   return (
    <Stack direction="row" flexWrap = "wrap" 
