@@ -11,8 +11,6 @@ function VideoDetail() {
   const [videoDetail, setvideoDetail] = useState(null);
   const [videos, setvideos] = useState(null);
   const {id} = useParams();
-  
-  const { snippet:{ title,channelId,channelTitle }, statistics:{ viewCount,likeCount }} = videoDetail;
   useEffect(()=>{
     fetchFromAPI(`videos?part=snippet,statistics&id=${id}`)
     .then((data)=>setvideoDetail(data.items[0]))
@@ -20,10 +18,15 @@ function VideoDetail() {
     fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`)
     .then((data) => setvideos(data.items))
   },[id]);
+  
+  if(!videoDetail) 
+  return "Loading....";
+
+  const { snippet:{ title,channelId,channelTitle }, statistics:{ viewCount,likeCount }} = videoDetail;
+  
   // console.log("We got below data");
   // console.log(videos);
   
-  if(!videoDetail?.snippet) return "Loading...."
   return (
     <Box minHeight="95vh">
       <Stack direction = {{xs:'column',md:'row'}}>
